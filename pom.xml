@@ -26,18 +26,8 @@
         <!-- Change to the full path where your main class extending SimplePlugin is. -->
         <main.class>me.aaaaadam.rat.Rat</main.class>
 
-        <!-- Change to the Java version used when compiling.
-
-             IMPORTANT: For Java 8, version is "1.8", for Java 11+ it is only "11" or "16".
-
-             If you use 1.8 then your plugin will work on newer versions,
-             but if you use "11" or "16" then it will not load on servers
-             with previous Java version. We recommend you stick with 1.8.
-
-             IF YOU WANT TO CODE WITH JAVA 16 THERE ARE CHANGES YOU MUST MAKE TO THIS
-             FILE, SEE <pluginRepositories> AND VERSION IN THE maven-shade-plugin BELOW.
-             -->
-        <java.version>1.8</java.version>
+        <!-- Updated to Java 21 for 1.21.8 compatibility -->
+        <java.version>21</java.version>
 
         <!-- Change to the latest one from https://github.com/kangarko/Foundation/releases
              or change to "LATEST" if you downloaded Foundation to your disk. -->
@@ -57,20 +47,45 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>elMakers</id>
+            <url>http://maven.elmakers.com/repository/</url>
+        </repository>
+        <!-- Spigot repository for API -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>minecraft-libraries</id>
+            <name>Minecraft Libraries</name>
+            <url>https://libraries.minecraft.net</url>
+        </repository>
     </repositories>
 
-    <!-- UNCOMMENT ONLY IF YOUR java.version IS SET TO JAVA 16 OR HIGHER. -->
     <pluginRepositories>
         <pluginRepository>
             <id>maven-snapshots</id>
             <url>https://repository.apache.org/content/repositories/snapshots/</url>
         </pluginRepository>
+        <pluginRepository>
+            <id>bytecode.space</id>
+            <url>https://repo.bytecode.space/repository/maven-public/</url>
+        </pluginRepository>
     </pluginRepositories>
 
     <dependencies>
-        <!-- Use our Foundation library - it contains SpigotAPI so you do not need to import that, only import
-              your API if you build for a different version than we (Foundation uses the latest one). In that case,
-             place your API above Foundation so Maven will prioritize it. -->
+        <!-- Your built Spigot 1.21.8 server jar for NMS access -->
+        <!-- UPDATE THE SYSTEM PATH to point to your built spigot jar file -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.21.8</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/death/BuildTools/spigot-1.21.8.jar</systemPath>
+        </dependency>
+
+        <!-- Use our Foundation library -->
         <dependency>
             <groupId>${foundation.path}</groupId>
             <artifactId>Foundation</artifactId>
@@ -78,31 +93,31 @@
         </dependency>
 
         <dependency>
+            <groupId>ca.bkaw</groupId>
+            <artifactId>paper-nms</artifactId>
+            <version>1.21.8-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>5.1.0</version>
         </dependency>
+
+        <!-- EffectLib dependency -->
+        <dependency>
+            <groupId>com.elmakers.mine.bukkit</groupId>
+            <artifactId>EffectLib</artifactId>
+            <version>10.2</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.46.0.0</version>
         </dependency>
-
-        <!-- (Optional) Access the server jar for NMS (groupId, artifactId and version do not matter and you
-             can only use it for your own organization purposes, but keep version in artifactId not in version
-             if using multiple NMS imports otherwise Maven will fail to import them correctly).
-
-             Foundation by default uses the latest Spigot API version. If you want to develop for another
-             version, move this dependency above Foundation here in this file so that your IDE.
-
-             NB: Edit the <systemPath> to point out to your patched server file on your disk. -->
-        <!--<dependency>
-            <groupId>paper-server</groupId>
-            <artifactId>Paper-1.8.8</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>/Users/kangarko/Test Servers/1.8.8/cache/patched.jar</systemPath>
-        </dependency>-->
     </dependencies>
 
     <!-- DO NOT EDIT unless instructed to do so or you know what you're doing. -->
@@ -110,36 +125,36 @@
         <finalName>${project.name}-${project.version}</finalName>
         <plugins>
             <plugin>
+                <groupId>ca.bkaw</groupId>
+                <artifactId>paper-nms-maven-plugin</artifactId>
+                <version>1.4.10</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>remap</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-
-                <!-- Change version to the latest one from
-                     https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
                 <version>3.2.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-
-                <!-- Change version to the latest one from
-                     https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-                <version>3.9.0</version>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-
-                <!-- Change version to the latest one from
-                     https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin
-
-                     IF YOU USE JAVA 16 THEN PLACE 3.3.0-SNAPSHOT TO THE VERSION AND MAKE SURE TO
-                     UNCOMMENT <pluginRepositories> above.
-                     -->
-                <version>3.3.1-SNAPSHOT</version>
+                <version>3.5.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -153,12 +168,23 @@
                     <artifactSet>
                         <includes>
                             <include>${foundation.path}:Foundation*</include>
+                            <include>com.elmakers.mine.bukkit:EffectLib</include>
+                            <include>com.zaxxer:HikariCP</include>
+                            <include>org.xerial:sqlite-jdbc</include>
                         </includes>
                     </artifactSet>
                     <relocations>
                         <relocation>
                             <pattern>org.mineacademy.fo</pattern>
-                            <shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>
+                            <shadedPattern>${project.groupId}.${project.artifactId}.lib.fo</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.slikey.effectlib</pattern>
+                            <shadedPattern>${project.groupId}.${project.artifactId}.lib.effectlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.zaxxer.hikari</pattern>
+                            <shadedPattern>${project.groupId}.${project.artifactId}.lib.hikari</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

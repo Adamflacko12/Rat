@@ -14,12 +14,13 @@ public final class PlayerDeath implements Listener {
 
 	public PlayerDeath() {
 		this.backCommand = BackCommand.getInstance();
+
 	}
 
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent e) {
 		Player player = e.getEntity();
 		backCommand.setDeathLocation(player, player.getLocation());
-		Common.tell(player, "&aYou can use /back to return to where you died <3");
+		Common.tell(player, "You can use /back to return to where you died <3");
 	}
 }

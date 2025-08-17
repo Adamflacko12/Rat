@@ -1,14 +1,3 @@
-me\aaaaadam\rat\Rat.class
-me\aaaaadam\rat\command\HealCommand.class
-me\aaaaadam\rat\command\HomeCommand.class
-me\aaaaadam\rat\data\HomeData$1.class
-me\aaaaadam\rat\data\HomeData$2.class
-me\aaaaadam\rat\listener\PlayerJoin.class
-me\aaaaadam\rat\data\HomeData.class
-me\aaaaadam\rat\command\WhackerCommand.class
-me\aaaaadam\rat\listener\TreeAxeBreak.class
-me\aaaaadam\rat\itemstack\TreeAxeItem.class
-me\aaaaadam\rat\listener\TreeAxeDrop.class
-me\aaaaadam\rat\command\BoopCommand.class
 me\aaaaadam\rat\command\BackCommand.class
-me\aaaaadam\rat\listener\PlayerDeath.class
+me\aaaaadam\rat\enchants\ReplanterEnchant.class
+me\aaaaadam\rat\command\WhackerCommand.class
