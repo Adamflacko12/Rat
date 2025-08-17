@@ -26,7 +26,7 @@ public final class TreeAxeDrop implements Listener {
 
 	@EventHandler
 	public void onKill(EntityDeathEvent e) {
-		if (random.nextDouble() < 0.07) {
+		if (random.nextDouble() < 0.001) {
 			ItemStack drop = dropItems.get(random.nextInt(dropItems.size()));
 			e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), drop.clone());
 			e.getDrops().clear();
