@@ -1,6 +1,7 @@
 package me.aaaaadam.rat.command;
 
 import me.aaaaadam.rat.data.HomeData;
+import me.aaaaadam.rat.gui.HomeGui;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,6 +32,13 @@ public final class HomeCommand implements CommandExecutor, TabCompleter {
 
 		Player player = (Player) sender;
 		HomeData homeData = HomeData.getInstance(plugin);
+
+		// If no arguments, open the GUI
+		if (args.length == 0) {
+			HomeGui gui = new HomeGui(homeData, player);
+			gui.displayTo(player);
+			return true;
+		}
 
 		// Handle subcommands
 		if (args.length > 0) {
@@ -75,6 +83,13 @@ public final class HomeCommand implements CommandExecutor, TabCompleter {
 					player.sendMessage(ChatColor.GREEN + "Your homes: " + String.join(", ", homeNames));
 					return true;
 
+				case "gui":
+				case "menu":
+					// Alternative way to open GUI
+					HomeGui gui = new HomeGui(homeData, player);
+					gui.displayTo(player);
+					return true;
+
 				default:
 					// Try to teleport to a home if the first argument is not a subcommand
 					homeName = args[0];
@@ -87,12 +102,6 @@ public final class HomeCommand implements CommandExecutor, TabCompleter {
 			}
 		}
 
-		// Default behavior - show usage or list homes if none specified
-		player.sendMessage(ChatColor.GREEN + "Usage: /home [set <name>|delete <name>|list|<homeName>]");
-		List<String> homeNames = homeData.getHomeNames(player);
-		if (!homeNames.isEmpty()) {
-			player.sendMessage(ChatColor.GREEN + "Your homes: " + String.join(", ", homeNames));
-		}
 		return true;
 	}
 
@@ -108,7 +117,7 @@ public final class HomeCommand implements CommandExecutor, TabCompleter {
 		if (args.length == 1) {
 			List<String> completions = new ArrayList<>();
 			String input = args[0].toLowerCase();
-			List<String> subcommands = Arrays.asList("set", "delete", "list");
+			List<String> subcommands = Arrays.asList("set", "delete", "list", "gui", "menu");
 
 			// Suggest subcommands
 			for (String subcommand : subcommands) {

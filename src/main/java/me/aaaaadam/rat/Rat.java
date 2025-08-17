@@ -3,7 +3,9 @@ package me.aaaaadam.rat;
 import me.aaaaadam.rat.command.HomeCommand;
 import me.aaaaadam.rat.data.HomeData;
 import me.aaaaadam.rat.itemstack.TreeAxeItem;
+import org.mineacademy.fo.menu.Menu;
 import org.mineacademy.fo.plugin.SimplePlugin;
+import org.mineacademy.fo.remain.CompSound;
 
 /**
  * Rat plugin main class with various utility commands and features
