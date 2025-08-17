@@ -2,10 +2,7 @@ package me.aaaaadam.rat;
 
 import me.aaaaadam.rat.command.HomeCommand;
 import me.aaaaadam.rat.data.HomeData;
-import me.aaaaadam.rat.enchants.ReplanterEnchant;
 import me.aaaaadam.rat.itemstack.TreeAxeItem;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.mineacademy.fo.plugin.SimplePlugin;
 
 /**
@@ -27,9 +24,6 @@ public final class Rat extends SimplePlugin {
 		// Initialize HomeData
 		homeData = HomeData.getInstance(this);
 		homeData.loadHomes();
-
-		ReplanterEnchant.getInstance()
-		getServer().getPluginManager().registerEvents(ReplanterEnchant.getInstance(), this);
 
 		// Initialize TreeAxeItem
 		TreeAxeItem.init(this);
