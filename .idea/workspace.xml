@@ -128,7 +128,19 @@
       <workItem from="1755412009413" duration="1965000" />
       <workItem from="1755414873882" duration="19735000" />
       <workItem from="1755449295755" duration="4480000" />
+      <workItem from="1755486723904" duration="1046000" />
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/me/aaaaadam/rat/enchants/EnchantmentManager.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

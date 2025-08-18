@@ -1,4 +1,3 @@
-me\aaaaadam\rat\Rat.class
 me\aaaaadam\rat\command\HealCommand.class
 me\aaaaadam\rat\command\HomeCommand.class
 me\aaaaadam\rat\data\HomeData$1.class
@@ -11,6 +10,6 @@ me\aaaaadam\rat\itemstack\TreeAxeItem.class
 me\aaaaadam\rat\listener\TreeAxeDrop.class
 me\aaaaadam\rat\command\BoopCommand.class
 me\aaaaadam\rat\command\BackCommand.class
+me\aaaaadam\rat\enchants\CustomEnchantment.class
 me\aaaaadam\rat\gui\HomeGui.class
-me\aaaaadam\rat\listener\PlayerDeath.class
-me\aaaaadam\rat\command\FlyCommand.class
+me\aaaaadam\rat\enchants\EnchantmentManager.class
